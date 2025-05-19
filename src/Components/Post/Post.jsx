@@ -41,6 +41,7 @@ function Post(props) {
                         img={obj.img}
                         career={obj.career}
                         likes={obj.likes}
+                        deleted={false}
                     />
                 ))}
             </div>
