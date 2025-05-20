@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Coment from '../Coment/coment';
 import './Post.css'
 
 function Post(props) {
     const [comment, setComment] = useState('');
+    const [comentarios, setComentarios] = useState([]);
+
+    useEffect(() => {
+        setComentarios(props.comments);
+    }, [props.comments])
 
     function Comment(e) {
         e.preventDefault();
@@ -16,7 +21,15 @@ function Post(props) {
             likes: 0
         })
         setComment('');
+        document.getElementsByClassName('coment-input').setCustomValidity("ERRO")
     }
+
+    function DeleteComment(i) {
+        console.log("Excluindo comentário: " + i);
+        const updated = comentarios.filter((item, index) => index !==i);
+        setComentarios(updated);
+    }
+
     return (
         <div className="post">
             <div className='user'>
@@ -30,18 +43,19 @@ function Post(props) {
             <hr color='#323238' />
             <div className='coment'>
                 <h4>Deixe seu feedback:</h4>
-                <input className='coment-input' value={comment} onChange={(e) => setComment(e.target.value)} />
+                <textarea className='coment-input' onChange={(e) => e.target.setCustomValidity("ERRO!")} />
                 <button className='coment-button' onClick={(e) => Comment(e)}>Publicar</button>
 
-                {props.comments.map((obj, i) => (
+                {comentarios.map((obj, i) => (
                     <Coment
                         key={i}
+                        index={i}
                         author={obj.author}
                         coment={obj.comment}
                         img={obj.img}
                         career={obj.career}
                         likes={obj.likes}
-                        deleted={false}
+                        deleted={DeleteComment}
                     />
                 ))}
             </div>

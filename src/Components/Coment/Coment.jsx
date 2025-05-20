@@ -6,7 +6,13 @@ import { useState } from "react";
 function Coment(props) {
     const [liked, setLiked] = useState(false);
 
-    
+    function DeletarComentario() {
+        const resposta = confirm("Você tem certeza que quer deletar esse comentário?")
+        if (resposta){
+            props.deleted(props.index)
+        }
+    }
+
     return (
         <div>
             <div className='user' style={{ alignItems: 'start' }}>
@@ -16,7 +22,7 @@ function Coment(props) {
                         <p className='user-name'>
                             {props.author}
 
-                            {props.author=="Lara Samari" && <FaTrashAlt/>}    
+                            {props.author == "Lara Samari" && <FaTrashAlt onClick={() => DeletarComentario()} />}
                         </p>
                         <p className='user-career'>{props.career}</p>
                         <div>
@@ -24,15 +30,15 @@ function Coment(props) {
                         </div>
                     </div>
                     <div>
-                        <div 
-                        style={{color: liked ? "#00B37E" :  "#8D8D99", display: 'flex', alignItems: 'center', cursor: 'pointer'}}
-                        onClick={() => setLiked(!liked)}
+                        <div
+                            style={{ color: liked ? "#00B37E" : "#8D8D99", display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                            onClick={() => setLiked(!liked)}
                         >
-                        <AiOutlineLike
-                            size={20}
-                            style={{fontWeight: 'bold', marginRight: '.5rem'}} 
-                        />
-                        <p>Aplaudir • {liked ? props.likes + 1 : props.likes}</p>
+                            <AiOutlineLike
+                                size={20}
+                                style={{ fontWeight: 'bold', marginRight: '.5rem' }}
+                            />
+                            <p>Aplaudir • {liked ? props.likes + 1 : props.likes}</p>
                         </div>
                     </div>
                 </div>

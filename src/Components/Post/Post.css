@@ -54,3 +54,7 @@
     margin: 1rem 0;
     cursor: pointer;
 }
+
+.coment-button:hover{
+    background-color: #00B37E;
+}
